@@ -150,6 +150,96 @@
         .info strong {
             color: #667eea;
         }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        body.dark-mode .container {
+            background: #2d2d44;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .header h1 {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .header p {
+            color: #999;
+        }
+
+        body.dark-mode .settings-group label {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .settings-group select {
+            background-color: #3d3d54;
+            color: #e0e0e0;
+            border-color: #555;
+        }
+
+        body.dark-mode .btn-reset {
+            background: #3d3d54;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .info {
+            background: #3d3d54;
+            border-left-color: #667eea;
+            color: #e0e0e0;
+        }
+
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #667eea;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
     </style>
 </head>
 <body>
@@ -168,6 +258,17 @@
                 <option value="es">🇪🇸 Español</option>
                 <option value="zh">🇨🇳 中文</option>
             </select>
+        </div>
+
+        <div class="settings-group">
+            <label for="darkModeToggle" data-i18n="darkModeLabel">Mode Sombre</label>
+            <div class="toggle-switch">
+                <label class="switch">
+                    <input type="checkbox" id="darkModeToggle">
+                    <span class="slider"></span>
+                </label>
+                <span id="darkModeStatus" data-i18n="darkModeOff">Désactivé</span>
+            </div>
         </div>
         
         <div class="button-group">

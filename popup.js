@@ -64,6 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
     translatePage();
   }
   
+  // Charger le dark mode
+  loadDarkModePopup();
+  
   // Afficher les stats immédiatement
   updateStats();
   
@@ -81,3 +84,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+/**
+ * Dark Mode : Charger et appliquer le thème au popup
+ */
+function loadDarkModePopup() {
+  chrome.storage.local.get(['darkMode'], (result) => {
+    const isDarkMode = result.darkMode || false;
+    if (isDarkMode) {
+      document.body.classList.add('dark-mode');
+    }
+  });
+}
