@@ -98,11 +98,13 @@ function getStats(callback) {
 }
 
 /**
- * Fonction utilitaire : Obtenir le nom du jour selon l'index (0 = aujourd'hui, 6 = il y a 6 jours)
+ * Fonction utilitaire : Obtenir le nom du jour selon la date
  */
-function getDayLabel(index) {
-  const days = ['Vendredi', 'Jeudi', 'Mercredi', 'Mardi', 'Lundi', 'Dimanche', 'Samedi'];
-  return days[index] || 'Jour';
+function getDayLabel(date) {
+  const options = { weekday: 'long' };
+  const dayName = date.toLocaleDateString('fr-FR', options);
+  // Capitaliser la première lettre
+  return dayName.charAt(0).toUpperCase() + dayName.slice(1);
 }
 
 /** * Fonction utilitaire : Obtenir les statistiques détaillées pour une période
@@ -128,14 +130,14 @@ function getDetailedStats(period, callback) {
       avgSession = sessionDurationHours > 0 ? Math.round(currentPageCount / sessionDurationHours) : 0;
       
       if (period === 'day') {
-        // Statistiques des 7 derniers jours
+        // Statistiques des 7 derniers jours (Lundi à Dimanche)
         for (let i = 6; i >= 0; i--) {
           const date = new Date(now - i * 24 * 60 * 60 * 1000);
           const dateKey = date.toISOString().split('T')[0];
           const value = dailyStats[dateKey] || 0;
           
           chartData.push({
-            label: getDayLabel(i),
+            label: getDayLabel(date),
             value: value
           });
           
@@ -143,7 +145,8 @@ function getDetailedStats(period, callback) {
           bestDay = Math.max(bestDay, value);
         }
       } else if (period === 'week') {
-        // Statistiques des 4 dernières semaines
+        // Statistiques des 4 dernières semaines (Semaine 1 à 4)
+        const weeks = [];
         for (let i = 3; i >= 0; i--) {
           const weekStart = new Date(now - i * 7 * 24 * 60 * 60 * 1000);
           let weekTotal = 0;
@@ -155,7 +158,7 @@ function getDetailedStats(period, callback) {
             weekTotal += dailyStats[dateKey] || 0;
           }
           
-          chartData.push({
+          weeks.push({
             label: `Semaine ${4 - i}`,
             value: weekTotal
           });
@@ -163,8 +166,11 @@ function getDetailedStats(period, callback) {
           totalPages += weekTotal;
           bestDay = Math.max(bestDay, weekTotal);
         }
+        // Inverser pour afficher Semaine 1 en premier
+        chartData = weeks.reverse();
       } else if (period === 'year') {
-        // Statistiques des 12 derniers mois
+        // Statistiques des 12 derniers mois (Jan à Dec)
+        const months = [];
         for (let i = 11; i >= 0; i--) {
           const monthStart = new Date(now);
           monthStart.setMonth(monthStart.getMonth() - i);
@@ -180,14 +186,17 @@ function getDetailedStats(period, callback) {
             monthTotal += dailyStats[dateKey] || 0;
           }
           
-          chartData.push({
-            label: monthStart.toLocaleDateString('fr-FR', { month: 'short' }),
+          const monthName = monthStart.toLocaleDateString('fr-FR', { month: 'short' });
+          months.push({
+            label: monthName.charAt(0).toUpperCase() + monthName.slice(1),
             value: monthTotal
           });
           
           totalPages += monthTotal;
           bestDay = Math.max(bestDay, monthTotal);
         }
+        // Inverser pour afficher Jan en premier
+        chartData = months.reverse();
       }
       
       callback({
