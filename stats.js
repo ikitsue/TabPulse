@@ -23,9 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Charger les données
   loadStats();
+  loadTopSites();
 
   // Mettre à jour les stats chaque minute
   setInterval(loadStats, 60000);
+  setInterval(loadTopSites, 60000);
 });
 
 /**
@@ -60,6 +62,16 @@ function loadStats() {
       displayStats(response.stats);
     } else {
       displayEmptyState();
+    }
+  });
+}
+
+function loadTopSites() {
+  chrome.runtime.sendMessage({ action: 'getTopSites' }, (response) => {
+    if (response && response.topSites && response.topSites.length > 0) {
+      displayTopSites(response.topSites);
+    } else {
+      displayTopSites([]);
     }
   });
 }
@@ -128,6 +140,32 @@ function displayEmptyState() {
   document.getElementById('totalPages').textContent = '--';
   document.getElementById('bestDay').textContent = '--';
 }
+
+function displayTopSites(topSites) {
+  const list = document.getElementById('topSitesList');
+  const emptyState = document.getElementById('topSitesEmpty');
+
+  list.innerHTML = '';
+  emptyState.style.display = topSites.length === 0 ? 'block' : 'none';
+
+  if (topSites.length === 0) {
+    return;
+  }
+
+  topSites.forEach((site, index) => {
+    const item = document.createElement('li');
+    item.className = 'top-site-item';
+    item.innerHTML = `
+      <span class="site-domain">${index + 1}. ${site.domain}</span>
+      <span class="site-visits">${site.visits}</span>
+    `;
+    list.appendChild(item);
+  });
+}
+
+/**
+ * Dark Mode : Charger et appliquer le thème
+ */
 
 /**
  * Dark Mode : Charger et appliquer le thème

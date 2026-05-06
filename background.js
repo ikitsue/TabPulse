@@ -13,7 +13,8 @@ const STORAGE_KEYS = {
   PAGE_COUNT: 'pageCount',
   LAST_TAB_ID: 'lastTabId',
   LAST_URL: 'lastUrl',
-  DAILY_STATS: 'dailyStats'
+  DAILY_STATS: 'dailyStats',
+  VISITED_SITES: 'visitedSites'
 };
 
 // Initialiser la session au démarrage du service worker
@@ -33,6 +34,7 @@ function initializeSession() {
         [STORAGE_KEYS.LAST_TAB_ID]: null,
         [STORAGE_KEYS.LAST_URL]: null,
         [STORAGE_KEYS.DAILY_STATS]: {},
+        [STORAGE_KEYS.VISITED_SITES]: {},
         language: 'en'
       });
       console.log('[TabPilse] Session initialisée');
@@ -50,17 +52,29 @@ chrome.webNavigation.onCommitted.addListener((details) => {
   
   // Récupérer les données actuelles
   chrome.storage.local.get(
-    [STORAGE_KEYS.PAGE_COUNT, STORAGE_KEYS.LAST_URL, STORAGE_KEYS.DAILY_STATS],
+    [STORAGE_KEYS.PAGE_COUNT, STORAGE_KEYS.LAST_URL, STORAGE_KEYS.DAILY_STATS, STORAGE_KEYS.VISITED_SITES],
     (result) => {
       const currentCount = result[STORAGE_KEYS.PAGE_COUNT] || 0;
       const lastUrl = result[STORAGE_KEYS.LAST_URL];
       const currentUrl = details.url;
       const dailyStats = result[STORAGE_KEYS.DAILY_STATS] || {};
+      const visitedSites = result[STORAGE_KEYS.VISITED_SITES] || {};
       
       // Incrémenter le compteur seulement si c'est une URL différente
       // ou si c'est le premier chargement
       if (currentUrl !== lastUrl) {
         const newCount = currentCount + 1;
+        
+        // Extraire le domaine de l'URL
+        try {
+          const url = new URL(currentUrl);
+          const domain = url.hostname || url.origin;
+          
+          // Incrémenter le compteur du site
+          visitedSites[domain] = (visitedSites[domain] || 0) + 1;
+        } catch (e) {
+          // URL invalide, on ignore
+        }
         
         // Mettre à jour les statistiques quotidiennes
         const today = new Date().toISOString().split('T')[0];
@@ -69,7 +83,8 @@ chrome.webNavigation.onCommitted.addListener((details) => {
         chrome.storage.local.set({
           [STORAGE_KEYS.PAGE_COUNT]: newCount,
           [STORAGE_KEYS.LAST_URL]: currentUrl,
-          [STORAGE_KEYS.DAILY_STATS]: dailyStats
+          [STORAGE_KEYS.DAILY_STATS]: dailyStats,
+          [STORAGE_KEYS.VISITED_SITES]: visitedSites
         });
         console.log(`[TabPilse] Page comptabilisée. Total: ${newCount}`);
       }
@@ -210,6 +225,26 @@ function getDetailedStats(period, callback) {
 }
 
 /**
+ * Obtenir le top 10 des sites les plus visités
+ */
+function getTopSites(callback) {
+  chrome.storage.local.get([STORAGE_KEYS.VISITED_SITES], (result) => {
+    const visitedSites = result[STORAGE_KEYS.VISITED_SITES] || {};
+    
+    // Convertir l'objet en array et trier par nombre de visites
+    const topSites = Object.entries(visitedSites)
+      .map(([domain, count]) => ({
+        domain: domain,
+        visits: count
+      }))
+      .sort((a, b) => b.visits - a.visits)
+      .slice(0, 10); // Prendre seulement les 10 premiers
+    
+    callback(topSites);
+  });
+}
+
+/**
  * Listener de message pour communiquer avec le popup
  * Le popup demande les stats et les affiche
  */
@@ -224,6 +259,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'getDetailedStats') {
     getDetailedStats(request.period, (stats) => {
       sendResponse({ stats });
+    });
+    return true;
+  }
+
+  if (request.action === 'getTopSites') {
+    getTopSites((topSites) => {
+      sendResponse({ topSites });
     });
     return true;
   }

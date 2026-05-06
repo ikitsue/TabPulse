@@ -202,6 +202,89 @@
             font-size: 13px;
         }
 
+        .top-sites-container {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .top-sites-header h2 {
+            font-size: 22px;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        .top-sites-header p {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 18px;
+        }
+
+        .top-sites-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .top-site-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            border: 1px solid #f0f0f0;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            transition: background 0.2s ease;
+        }
+
+        .top-site-item:hover {
+            background: #f7f8ff;
+        }
+
+        .site-domain {
+            font-weight: 600;
+            color: #333;
+            word-break: break-word;
+            max-width: 70%;
+        }
+
+        .site-visits {
+            color: #666;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        body.dark-mode .top-sites-container {
+            background: #2d2d44;
+        }
+
+        body.dark-mode .top-sites-header h2 {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .top-sites-header p {
+            color: #aaa;
+        }
+
+        body.dark-mode .top-site-item {
+            background: #333657;
+            border-color: #3e3e65;
+        }
+
+        body.dark-mode .top-site-item:hover {
+            background: #3c3c6c;
+        }
+
+        body.dark-mode .site-domain {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .site-visits {
+            color: #ccc;
+        }
+
         /* Dark Mode */
         body.dark-mode {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
@@ -303,6 +386,17 @@
                 <div class="empty-state">
                     <p data-i18n="noData">Pas de données disponibles</p>
                 </div>
+            </div>
+        </div>
+
+        <div class="top-sites-container">
+            <div class="top-sites-header">
+                <h2 data-i18n="topSitesTitle">Top 10 Sites</h2>
+                <p data-i18n="topSitesSubtitle">Vos sites les plus visités</p>
+            </div>
+            <ol class="top-sites-list" id="topSitesList"></ol>
+            <div class="top-sites-empty empty-state" id="topSitesEmpty" style="display: none;">
+                <p data-i18n="noData">Pas de données disponibles</p>
             </div>
         </div>
 

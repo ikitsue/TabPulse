@@ -44,7 +44,10 @@ const TRANSLATIONS = {
     week1: 'Semaine 1',
     week2: 'Semaine 2',
     week3: 'Semaine 3',
-    week4: 'Semaine 4'
+    week4: 'Semaine 4',
+    // Top Sites
+    topSitesTitle: 'Top 10 Sites',
+    topSitesSubtitle: 'Vos sites les plus visités'
   },
   en: {
     sessionTimeLabel: 'Time Elapsed',
@@ -97,7 +100,10 @@ const TRANSLATIONS = {
     week1: 'Week 1',
     week2: 'Week 2',
     week3: 'Week 3',
-    week4: 'Week 4'
+    week4: 'Week 4',
+    // Top Sites
+    topSitesTitle: 'Top 10 Sites',
+    topSitesSubtitle: 'Your most visited sites'
   },
   ru: {
     sessionTimeLabel: 'Прошедшее время',
@@ -138,7 +144,10 @@ const TRANSLATIONS = {
     week1: 'Неделя 1',
     week2: 'Неделя 2',
     week3: 'Неделя 3',
-    week4: 'Неделя 4'
+    week4: 'Неделя 4',
+    // Топ сайтов
+    topSitesTitle: 'Топ 10 сайтов',
+    topSitesSubtitle: 'Ваши наиболее посещаемые сайты'
   },
   es: {
     sessionTimeLabel: 'Tiempo transcurrido',
@@ -191,7 +200,10 @@ const TRANSLATIONS = {
     week1: 'Semana 1',
     week2: 'Semana 2',
     week3: 'Semana 3',
-    week4: 'Semana 4'
+    week4: 'Semana 4',
+    // Top Sitios
+    topSitesTitle: 'Top 10 Sitios',
+    topSitesSubtitle: 'Tus sitios más visitados'
   },
   zh: {
     sessionTimeLabel: '已用时间',
@@ -232,7 +244,10 @@ const TRANSLATIONS = {
     week1: '第1周',
     week2: '第2周',
     week3: '第3周',
-    week4: '第4周'
+    week4: '第4周',
+    // 热门网站
+    topSitesTitle: '热门10网站',
+    topSitesSubtitle: '您最常访问的网站'
   }
 };
 
