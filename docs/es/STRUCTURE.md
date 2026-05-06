@@ -10,20 +10,29 @@ TabPilse/
 ├── options.js             # Lógica de configuración
 ├── i18n.js                # Sistema de traducción
 ├── README.md              # Documentación principal (multilingüe)
-├── README_EN.md           # Documentación en inglés
-├── README_FR.md           # Documentación en francés
-├── README_RU.md           # Documentación en ruso
-├── README_ES.md           # Documentación en español
-├── README_ZH.md           # Documentación en chino
-├── STRUCTURE.md           # Estructura del proyecto (francés)
 ├── LICENSE                # Licencia MIT
 ├── .gitignore             # Archivo de exclusión de Git
+├── docs/                  # Documentación por idioma
+│   ├── en/
+│   │   ├── README.md
+│   │   └── STRUCTURE.md
+│   ├── fr/
+│   │   ├── README.md
+│   │   └── STRUCTURE.md
+│   ├── ru/
+│   │   ├── README.md
+│   │   └── STRUCTURE.md
+│   ├── es/
+│   │   ├── README.md
+│   │   └── STRUCTURE.md
+│   └── zh/
+│       ├── README.md
+│       └── STRUCTURE.md
 ├── images/                # Carpeta para iconos (opcional)
 │   ├── icon16.png
 │   ├── icon48.png
-│   ├── icon128.png
-│   └── README.md
-└── [archivos de otros idiomas]
+│   └── icon128.png
+└── DOCUMENTATION_ALL.md   # Documentación completa en un archivo
 ```
 
 ## Notas sobre la organización
@@ -33,6 +42,7 @@ TabPilse/
 - **popup.html/js** : Interfaz de usuario (dónde modificar la visualización)
 - **options.html/js** : Página de configuración (idioma, preferencias futuras)
 - **i18n.js** : Sistema de traducción (agregue nuevos idiomas aquí)
+- **docs/** : Documentación por idioma (organizada por código de idioma)
 - **images/** : Coloque sus iconos PNG (16x16, 48x48, 128x128)
 
 La estructura es minimalista pero extensible para desarrollo futuro.

@@ -10,20 +10,29 @@ TabPilse/
 ├── options.js             # 设置逻辑
 ├── i18n.js                # 翻译系统
 ├── README.md              # 主要文档（多语言）
-├── README_EN.md           # 英文文档
-├── README_FR.md           # 法文文档
-├── README_RU.md           # 俄文文档
-├── README_ES.md           # 西班牙文文档
-├── README_ZH.md           # 中文文档
-├── STRUCTURE.md           # 项目结构（法文）
 ├── LICENSE                # MIT 许可证
 ├── .gitignore             # Git 忽略文件
+├── docs/                  # 按语言的文档
+│   ├── en/
+│   │   ├── README.md
+│   │   └── STRUCTURE.md
+│   ├── fr/
+│   │   ├── README.md
+│   │   └── STRUCTURE.md
+│   ├── ru/
+│   │   ├── README.md
+│   │   └── STRUCTURE.md
+│   ├── es/
+│   │   ├── README.md
+│   │   └── STRUCTURE.md
+│   └── zh/
+│       ├── README.md
+│       └── STRUCTURE.md
 ├── images/                # 图标文件夹（可选）
 │   ├── icon16.png
 │   ├── icon48.png
-│   ├── icon128.png
-│   └── README.md
-└── [其他语言文件]
+│   └── icon128.png
+└── DOCUMENTATION_ALL.md   # 完整文档在一个文件中
 ```
 
 ## 组织说明
@@ -33,6 +42,7 @@ TabPilse/
 - **popup.html/js** : 用户界面（修改显示的地方）
 - **options.html/js** : 设置页面（语言、未来首选项）
 - **i18n.js** : 翻译系统（在此添加新语言）
+- **docs/** : 按语言的文档（按语言代码组织）
 - **images/** : 放置您的 PNG 图标（16x16、48x48、128x128）
 
 结构简洁但可扩展以供未来开发。

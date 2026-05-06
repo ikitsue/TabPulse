@@ -75,7 +75,7 @@ Translation system.
 
 ## 🚀 How to Load the Extension
 
-### Step 1: Open Extensions Page
+### Step 1: Access the Extensions Page
 1. Open **Chrome** or **Brave**
 2. Go to: `chrome://extensions/` (Chrome) or `brave://extensions/` (Brave)
 

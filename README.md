@@ -4,13 +4,15 @@
 
 ## 🌍 Documentation
 
-Choose your language / Choisissez votre langue:
+Choose your language / Choisissez votre langue / Выберите ваш язык / Elige tu idioma / 选择您的语言
 
-- 🇬🇧 [English - README_EN.md](README_EN.md)
-- 🇫🇷 [Français - README_FR.md](README_FR.md)
-- 🇷🇺 [Русский - README_RU.md](README_RU.md)
-- 🇪🇸 [Español - README_ES.md](README_ES.md)
-- 🇨🇳 [中文 - README_ZH.md](README_ZH.md)
+All documentation organized in language folders under `/docs/`:
+
+- 🇬🇧 [English - /docs/en/](docs/en/README.md)
+- 🇫🇷 [Français - /docs/fr/](docs/fr/README.md)
+- 🇷🇺 [Русский - /docs/ru/](docs/ru/README.md)
+- 🇪🇸 [Español - /docs/es/](docs/es/README.md)
+- 🇨🇳 [中文 - /docs/zh/](docs/zh/README.md)
 
 ---
 

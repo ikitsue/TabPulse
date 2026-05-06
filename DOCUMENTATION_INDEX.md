@@ -1,45 +1,64 @@
 # 📚 Documentation Index
 
-This folder contains documentation in multiple languages for TabPilse.
+Complete documentation for TabPilse organized by language folders.
 
-## 📖 README Files
+## 📖 Documentation by Language
 
-Main documentation files:
+All documentation is now organized in language-specific folders under `/docs/`:
 
-| Language | File | Link |
-|----------|------|------|
-| 🇬🇧 English | README_EN.md | [English Documentation](README_EN.md) |
-| 🇫🇷 Français | README_FR.md | [Documentation Française](README_FR.md) |
-| 🇷🇺 Русский | README_RU.md | [Русская Документация](README_RU.md) |
-| 🇪🇸 Español | README_ES.md | [Documentación Española](README_ES.md) |
-| 🇨🇳 中文 | README_ZH.md | [中文文档](README_ZH.md) |
-
-**Main file:** [README.md](README.md) (Multilingual Hub)
+| Language | Folder | Files |
+|----------|--------|-------|
+| 🇬🇧 English | [`/docs/en/`](docs/en/) | README.md, STRUCTURE.md |
+| 🇫🇷 Français | [`/docs/fr/`](docs/fr/) | README.md, STRUCTURE.md |
+| 🇷🇺 Русский | [`/docs/ru/`](docs/ru/) | README.md, STRUCTURE.md |
+| 🇪🇸 Español | [`/docs/es/`](docs/es/) | README.md, STRUCTURE.md |
+| 🇨🇳 中文 | [`/docs/zh/`](docs/zh/) | README.md, STRUCTURE.md |
 
 ---
 
-## 🗂️ STRUCTURE Files
+## 📂 Folder Structure
 
-Project structure documentation:
-
-| Language | File |
-|----------|------|
-| 🇬🇧 English | [STRUCTURE_EN.md](STRUCTURE_EN.md) |
-| 🇫🇷 Français | [STRUCTURE_FR.md](STRUCTURE_FR.md) |
-| 🇷🇺 Русский | [STRUCTURE_RU.md](STRUCTURE_RU.md) |
-| 🇪🇸 Español | [STRUCTURE_ES.md](STRUCTURE_ES.md) |
-| 🇨🇳 中文 | [STRUCTURE_ZH.md](STRUCTURE_ZH.md) |
-
-**Main file:** [STRUCTURE.md](STRUCTURE.md) (Original French)
+```
+docs/
+├── en/
+│   ├── README.md      (English documentation)
+│   └── STRUCTURE.md   (Project structure - English)
+├── fr/
+│   ├── README.md      (Documentation française)
+│   └── STRUCTURE.md   (Structure du projet - Français)
+├── ru/
+│   ├── README.md      (Русская документация)
+│   └── STRUCTURE.md   (Структура проекта - Русский)
+├── es/
+│   ├── README.md      (Documentación en español)
+│   └── STRUCTURE.md   (Estructura del proyecto - Español)
+└── zh/
+    ├── README.md      (中文文档)
+    └── STRUCTURE.md   (项目结构 - 中文)
+```
 
 ---
 
 ## 📄 Other Files
 
+- [README.md](README.md) - Main hub (multilingual overview)
+- [STRUCTURE.md](STRUCTURE.md) - Project structure (French - original)
 - [LICENSE](LICENSE) - MIT License
 - [.gitignore](.gitignore) - Git ignore rules
 - [manifest.json](manifest.json) - Extension configuration
+- [DOCUMENTATION_ALL.md](DOCUMENTATION_ALL.md) - Complete documentation in one file
+
+---
+
+## 🚀 Quick Start
+
+1. Choose your language folder in `/docs/`
+2. Read the README.md in your language
+3. Follow the "How to Load" section
+4. Test the extension in `chrome://extensions/`
 
 ---
 
 **Choose your language and start reading!** 🌍
+
+
