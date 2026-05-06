@@ -1,135 +1,63 @@
-# 📊 TabPilse - Extension Chrome Manifest V3
+# 📊 TabPilse - Chrome Manifest V3 Extension
 
-Extension simple et légère pour suivre vos statistiques de navigation.
+**Available in multiple languages / Disponible en plusieurs langues**
 
-## 📋 Fichiers du projet
+## 🌍 Documentation
 
-### 1. **manifest.json**
-Configuration de l'extension (required par Chrome).
+Choose your language / Choisissez votre langue:
 
-**Ce qu'il fait :**
-- Déclare le nom, version et description de l'extension
-- Énumère les permissions nécessaires (`tabs`, `webNavigation`, `storage`)
-- Pointe vers le service worker (`background.js`)
-- Configure le popup (`popup.html`)
-
-**Clé importante :** `manifest_version: 3` = Manifest V3 (nouvelle standard)
+- 🇬🇧 [English - README_EN.md](README_EN.md)
+- 🇫🇷 [Français - README_FR.md](README_FR.md)
+- 🇷🇺 [Русский - README_RU.md](README_RU.md)
+- 🇪🇸 [Español - README_ES.md](README_ES.md)
+- 🇨🇳 [中文 - README_ZH.md](README_ZH.md)
 
 ---
 
-### 2. **background.js**
-Service Worker qui tourne en arrière-plan et gère la logique.
+## 📋 Quick Start / Démarrage Rapide
 
-**Ce qu'il fait :**
-- 🕐 **Initialise la session** → Enregistre l'heure de démarrage du navigateur
-- 📄 **Compte les pages** → Utilise `chrome.webNavigation.onCommitted` pour détecter chaque nouvelle page
-- 🚫 **Évite les doublons** → Compare l'URL actuelle avec la précédente
-- 💾 **Stocke les données** → Utilise `chrome.storage.local` (stockage local, jamais envoyé)
-- 📨 **Communique avec le popup** → Répond aux messages du popup avec les stats
+### English
+A simple and lightweight extension to track your browsing statistics. Read [README_EN.md](README_EN.md) for full documentation.
 
-**Événements clés :**
-- `chrome.webNavigation.onCommitted` → Se déclenche quand une page se charge réellement
-- `chrome.runtime.onMessage` → Reçoit les demandes du popup
+### Français
+Une extension simple et légère pour suivre vos statistiques de navigation. Lisez [README_FR.md](README_FR.md) pour la documentation complète.
 
----
+### Русский
+Простое и легкое расширение для отслеживания статистики вашего просмотра. Прочтите [README_RU.md](README_RU.md) для полной документации.
 
-### 3. **popup.html**
-Interface utilisateur (ce qu'on voit en cliquant sur l'icône).
+### Español
+Una extensión simple y ligera para rastrear tus estadísticas de navegación. Lee [README_ES.md](README_ES.md) para la documentación completa.
 
-**Ce qu'il affiche :**
-- ⏱️ Temps écoulé depuis le démarrage du navigateur (en minutes)
-- 📊 Nombre total de pages consultées
-- 🎨 Design moderne avec dégradé violet
+### 中文
+一个简单轻巧的扩展程序，用于跟踪您的浏览统计数据。阅读 [README_ZH.md](README_ZH.md) 获取完整文档。
 
 ---
 
-### 4. **popup.js**
-Logique du popup.
+## 🚀 How to Load / Comment Charger
 
-**Ce qu'il fait :**
-- 🔄 Récupère les stats du background chaque seconde
-- 📝 Formate les nombres de manière lisible
-- ✨ Met à jour l'interface en temps réel
-
----
-
-## 🚀 Comment charger l'extension
-
-### Étape 1: Accéder au mode développeur
-1. Ouvrez **Chrome** ou **Brave**
-2. Allez à : `chrome://extensions/` (Chrome) ou `brave://extensions/` (Brave)
-
-### Étape 2: Activer le mode développeur
-- Cliquez sur l'interrupteur **"Mode de développement"** (coin haut-droit)
-
-### Étape 3: Charger l'extension
-1. Cliquez sur **"Charger l'extension non empaquetée"**
-2. Sélectionnez le dossier contenant les fichiers de l'extension
-3. ✅ L'extension est chargée !
-
-### Étape 4: Tester l'extension
-- Vous verrez l'icône de l'extension dans la barre d'outils
-- Cliquez dessus pour ouvrir le popup
-- Les statistiques augmenteront à chaque nouvelle page
+1. Open `chrome://extensions/` or `brave://extensions/`
+2. Enable "Developer mode"
+3. Click "Load unpacked"
+4. Select the TabPilse folder
+5. Done! ✅
 
 ---
 
-## 🔐 Respect de la vie privée
+## ✨ Features / Fonctionnalités
 
-✅ **Cette extension :**
-- ❌ N'enregistre JAMAIS les URLs
-- ❌ N'enregistre JAMAIS les titres de pages
-- ❌ N'enregistre JAMAIS l'historique
-- ✅ Ne compte que le nombre de pages (nombre brut, pas les détails)
-- ✅ Les données restent dans le stockage local du navigateur
-- ✅ Rien n'est envoyé en ligne
+✅ Track browsing time  
+✅ Count pages visited  
+✅ 5 languages support  
+✅ Privacy-first design  
+✅ No data collection  
 
 ---
 
-## 📈 Comment ça fonctionne (en détail)
+## 📄 File Structure / Structure des Fichiers
 
-```
-Utilisateur clique sur une page
-         ↓
-background.js détecte l'événement onCommitted
-         ↓
-Compare l'URL avec la précédente pour éviter les doublons
-         ↓
-Incrémente le compteur de pages
-         ↓
-Utilisateur ouvre le popup
-         ↓
-popup.js demande les stats au background
-         ↓
-background.js envoie : temps écoulé + nombre de pages
-         ↓
-popup.js affiche les stats mises à jour
-         ↓
-Le popup se met à jour chaque seconde (timer)
-```
+See [STRUCTURE.md](STRUCTURE.md) for project organization.
 
 ---
 
-## 🎯 Données stockées
+**Enjoy TabPilse! / Profitez de TabPilse!** 🎉
 
-L'extension stocke 4 clés dans `chrome.storage.local` :
-
-| Clé | Valeur | Exemple |
-|-----|--------|---------|
-| `sessionStartTime` | Timestamp du démarrage | `1715000000000` |
-| `pageCount` | Nombre de pages consultées | `42` |
-| `lastUrl` | Dernière URL pour éviter les doublons | `https://google.com` |
-| `lastTabId` | ID du dernier onglet (optionnel) | `1` |
-
----
-
-## ✨ Pour évoluer plus tard
-
-**Idées d'améliorations :**
-- Ajouter un bouton "Réinitialiser" pour recommencer la session
-- Afficher des statistiques quotidiennes/hebdomadaires
-- Créer des graphiques
-- Ajouter une limite de temps quotidienne
-- Notifier quand on dépasse une durée limite
-
-La structure du code est prête pour ces évolutions. Bonne luck ! 🚀
