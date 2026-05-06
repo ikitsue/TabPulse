@@ -30,7 +30,8 @@ function initializeSession() {
         [STORAGE_KEYS.SESSION_START]: now,
         [STORAGE_KEYS.PAGE_COUNT]: 0,
         [STORAGE_KEYS.LAST_TAB_ID]: null,
-        [STORAGE_KEYS.LAST_URL]: null
+        [STORAGE_KEYS.LAST_URL]: null,
+        language: 'en'
       });
       console.log('[TabPilse] Session initialisée');
     }

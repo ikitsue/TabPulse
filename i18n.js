@@ -68,11 +68,11 @@ const TRANSLATIONS = {
 };
 
 /**
- * Récupère la langue actuelle (par défaut: français)
+ * Récupère la langue actuelle (par défaut: anglais)
  */
 function getLanguage(callback) {
   chrome.storage.local.get(['language'], (result) => {
-    const lang = result.language || 'fr';
+    const lang = result.language || 'en';
     callback(lang);
   });
 }
@@ -110,6 +110,13 @@ function translatePage() {
           el.value = TRANSLATIONS[lang][key];
         } else {
           el.textContent = TRANSLATIONS[lang][key];
+        }
+      } else if (TRANSLATIONS.en && TRANSLATIONS.en[key]) {
+        // Fallback en anglais si la langue n'existe pas
+        if (el.tagName === 'BUTTON' || el.tagName === 'INPUT') {
+          el.value = TRANSLATIONS.en[key];
+        } else {
+          el.textContent = TRANSLATIONS.en[key];
         }
       }
     });

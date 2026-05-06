@@ -43,9 +43,9 @@ saveBtn.addEventListener('click', () => {
 });
 
 /**
- * Bouton Réinitialiser : Retourner au français
+ * Bouton Réinitialiser : Retourner à l'anglais
  */
 resetBtn.addEventListener('click', () => {
-  languageSelect.value = 'fr';
+  languageSelect.value = 'en';
   saveBtn.click(); // Sauvegarder le changement
 });
