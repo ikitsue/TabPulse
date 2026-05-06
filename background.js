@@ -115,10 +115,9 @@ function getStats(callback) {
 /**
  * Fonction utilitaire : Obtenir le nom du jour selon la date
  */
-function getDayLabel(date) {
+function getDayLabel(date, locale) {
   const options = { weekday: 'long' };
-  const dayName = date.toLocaleDateString('fr-FR', options);
-  // Capitaliser la première lettre
+  const dayName = date.toLocaleDateString(locale, options);
   return dayName.charAt(0).toUpperCase() + dayName.slice(1);
 }
 
@@ -127,16 +126,33 @@ function getDayLabel(date) {
  */
 function getDetailedStats(period, callback) {
   chrome.storage.local.get(
-    [STORAGE_KEYS.DAILY_STATS, STORAGE_KEYS.SESSION_START, STORAGE_KEYS.PAGE_COUNT],
+    [STORAGE_KEYS.DAILY_STATS, STORAGE_KEYS.SESSION_START, STORAGE_KEYS.PAGE_COUNT, 'language'],
     (result) => {
       const dailyStats = result[STORAGE_KEYS.DAILY_STATS] || {};
       const sessionStart = result[STORAGE_KEYS.SESSION_START] || Date.now();
       const currentPageCount = result[STORAGE_KEYS.PAGE_COUNT] || 0;
+      const language = result.language || 'en';
       
       let chartData = [];
       let totalPages = 0;
       let avgSession = 0;
       let bestDay = 0;
+      
+      const localeMap = {
+        fr: 'fr-FR',
+        en: 'en-US',
+        ru: 'ru-RU',
+        es: 'es-ES',
+        zh: 'zh-CN'
+      };
+      const locale = localeMap[language] || 'en-US';
+      const weekPrefix = {
+        fr: 'Semaine',
+        en: 'Week',
+        ru: 'Неделя',
+        es: 'Semana',
+        zh: '第'
+      };
       
       const now = Date.now();
       
@@ -145,14 +161,14 @@ function getDetailedStats(period, callback) {
       avgSession = sessionDurationHours > 0 ? Math.round(currentPageCount / sessionDurationHours) : 0;
       
       if (period === 'day') {
-        // Statistiques des 7 derniers jours (Lundi à Dimanche)
+        // Statistiques des 7 derniers jours
         for (let i = 6; i >= 0; i--) {
           const date = new Date(now - i * 24 * 60 * 60 * 1000);
           const dateKey = date.toISOString().split('T')[0];
           const value = dailyStats[dateKey] || 0;
           
           chartData.push({
-            label: getDayLabel(date),
+            label: getDayLabel(date, locale),
             value: value
           });
           
@@ -173,8 +189,13 @@ function getDetailedStats(period, callback) {
             weekTotal += dailyStats[dateKey] || 0;
           }
           
+          const weekNumber = 4 - i;
+          let weekLabel = language === 'zh'
+            ? `${weekPrefix[language]}${weekNumber}周`
+            : `${weekPrefix[language]} ${weekNumber}`;
+          
           weeks.push({
-            label: `Semaine ${4 - i}`,
+            label: weekLabel,
             value: weekTotal
           });
           
@@ -201,9 +222,11 @@ function getDetailedStats(period, callback) {
             monthTotal += dailyStats[dateKey] || 0;
           }
           
-          const monthName = monthStart.toLocaleDateString('fr-FR', { month: 'short' });
+          let monthName = monthStart.toLocaleDateString(locale, { month: 'short' });
+          monthName = monthName.charAt(0).toUpperCase() + monthName.slice(1);
+          
           months.push({
-            label: monthName.charAt(0).toUpperCase() + monthName.slice(1),
+            label: monthName,
             value: monthTotal
           });
           
