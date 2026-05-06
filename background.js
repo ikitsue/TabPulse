@@ -12,7 +12,8 @@ const STORAGE_KEYS = {
   SESSION_START: 'sessionStartTime',
   PAGE_COUNT: 'pageCount',
   LAST_TAB_ID: 'lastTabId',
-  LAST_URL: 'lastUrl'
+  LAST_URL: 'lastUrl',
+  DAILY_STATS: 'dailyStats'
 };
 
 // Initialiser la session au démarrage du service worker

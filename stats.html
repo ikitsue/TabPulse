@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistiques - TabPulse</title>
+    <link rel="icon" type="image/png" href="images/icon16.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .time-selector {
+            display: flex;
+            gap: 10px;
+        }
+
+        .time-btn {
+            padding: 10px 16px;
+            border: 2px solid #ddd;
+            background: white;
+            color: #333;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .time-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .time-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: #667eea;
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-card h3 {
+            font-size: 14px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .stat-card .value {
+            font-size: 36px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-card .unit {
+            font-size: 13px;
+            color: #ccc;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .chart-bar {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            height: 300px;
+            margin-bottom: 20px;
+            padding: 10px 0;
+        }
+
+        .bar-item {
+            flex: 1;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px 8px 0 0;
+            min-height: 40px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 10px;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .bar-item:hover {
+            opacity: 0.8;
+        }
+
+        .bar-label {
+            font-size: 12px;
+            color: #999;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .bar-value {
+            font-size: 12px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .empty-state p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        body.dark-mode .header {
+            background: #2d2d44;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .header h1 {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .time-btn {
+            background: #3d3d54;
+            color: #e0e0e0;
+            border-color: #555;
+        }
+
+        body.dark-mode .time-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        body.dark-mode .time-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: #667eea;
+            color: white;
+        }
+
+        body.dark-mode .stat-card {
+            background: #2d2d44;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .stat-card h3 {
+            color: #999;
+        }
+
+        body.dark-mode .stat-card .unit {
+            color: #666;
+        }
+
+        body.dark-mode .chart-container {
+            background: #2d2d44;
+        }
+
+        body.dark-mode .chart-title {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .bar-label {
+            color: #999;
+        }
+
+        body.dark-mode .footer {
+            background: rgba(0, 0, 0, 0.3);
+            color: rgba(200, 200, 200, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 <span data-i18n="statsTitle">Statistiques</span></h1>
+            <div class="time-selector">
+                <button class="time-btn active" data-period="day" data-i18n="dayBtn">Jour</button>
+                <button class="time-btn" data-period="week" data-i18n="weekBtn">Semaine</button>
+                <button class="time-btn" data-period="year" data-i18n="yearBtn">Année</button>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3 data-i18n="avgSessionLabel">Session moyenne</h3>
+                <div class="value" id="avgSession">--</div>
+                <div class="unit" data-i18n="minutesUnit">minutes</div>
+            </div>
+            <div class="stat-card">
+                <h3 data-i18n="totalPagesLabel">Total pages</h3>
+                <div class="value" id="totalPages">--</div>
+                <div class="unit" data-i18n="pagesUnit">pages</div>
+            </div>
+            <div class="stat-card">
+                <h3 data-i18n="bestDayLabel">Meilleur jour</h3>
+                <div class="value" id="bestDay">--</div>
+                <div class="unit" data-i18n="pagesUnit">pages</div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-title" data-i18n="chartTitle">Activité</div>
+            <div id="chartContent">
+                <div class="empty-state">
+                    <p data-i18n="noData">Pas de données disponibles</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p data-i18n="chartNote">💡 Les données de navigation sont stockées localement et ne sont jamais envoyées.</p>
+        </div>
+    </div>
+
+    <script src="i18n.js"></script>
+    <script src="stats.js"></script>
+</body>
+</html>

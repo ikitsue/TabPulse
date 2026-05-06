@@ -83,6 +83,15 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // Gérer le clic sur le bouton stats
+  const statsBtn = document.getElementById('statsBtn');
+  if (statsBtn) {
+    statsBtn.addEventListener('click', () => {
+      // Ouvrir la page stats
+      chrome.tabs.create({ url: chrome.runtime.getURL('stats.html') });
+    });
+  }
 });
 
 /**

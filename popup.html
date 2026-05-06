@@ -148,6 +148,35 @@
             background: rgba(255, 255, 255, 0.15);
             border-color: rgba(255, 255, 255, 0.3);
         }
+
+        .stats-btn {
+            margin-top: 10px;
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .stats-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        body.dark-mode .stats-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        body.dark-mode .stats-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -175,6 +204,7 @@
         </div>
         
         <button class="settings-btn" id="settingsBtn" data-i18n="settingsBtn">⚙️ Paramètres</button>
+        <button class="stats-btn" id="statsBtn" data-i18n="statsBtn">📊 Statistiques</button>
         
         <div class="footer" data-i18n="privacyNote">
             ✓ Données jamais enregistrées
