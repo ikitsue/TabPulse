@@ -59,9 +59,25 @@ function updateStats() {
  * Initialisation au chargement du popup
  */
 document.addEventListener('DOMContentLoaded', () => {
+  // Charger les traductions (vérifier que la fonction existe)
+  if (typeof translatePage === 'function') {
+    translatePage();
+  }
+  
   // Afficher les stats immédiatement
   updateStats();
   
   // Mettre à jour les stats chaque seconde pour que le temps s'actualise
   setInterval(updateStats, 1000);
+  
+  // Gérer le clic sur le bouton paramètres
+  const settingsBtn = document.getElementById('settingsBtn');
+  if (settingsBtn) {
+    settingsBtn.addEventListener('click', () => {
+      // Ouvrir la page d'options avec gestion d'erreur
+      chrome.runtime.openOptionsPage().catch((error) => {
+        console.error('Erreur lors de l\'ouverture des paramètres:', error);
+      });
+    });
+  }
 });

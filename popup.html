@@ -88,18 +88,37 @@
             font-size: 11px;
             color: rgba(255, 255, 255, 0.7);
         }
+        
+        .settings-btn {
+            margin-top: 15px;
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+        
+        .settings-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>📊 TabPilse</h1>
-            <p>Vos statistiques de navigation</p>
+            <h1>📊 <span data-i18n="appName">TabPilse</span></h1>
+            <p data-i18n="subtitle">Vos statistiques de navigation</p>
         </div>
         
         <div class="stats">
             <div class="stat-item">
-                <div class="stat-label">Temps écoulé</div>
+                <div class="stat-label" data-i18n="sessionTimeLabel">Temps écoulé</div>
                 <div class="stat-value">
                     <span id="sessionTime">--</span>
                     <span class="stat-unit">min</span>
@@ -107,18 +126,21 @@
             </div>
             
             <div class="stat-item">
-                <div class="stat-label">Pages consultées</div>
+                <div class="stat-label" data-i18n="pageCountLabel">Pages consultées</div>
                 <div class="stat-value">
                     <span id="pageCount">--</span>
                 </div>
             </div>
         </div>
         
-        <div class="footer">
+        <button class="settings-btn" id="settingsBtn" data-i18n="settingsBtn">⚙️ Paramètres</button>
+        
+        <div class="footer" data-i18n="privacyNote">
             ✓ Données jamais enregistrées
         </div>
     </div>
     
+    <script src="i18n.js"></script>
     <script src="popup.js"></script>
 </body>
 </html>
