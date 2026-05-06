@@ -1,0 +1,10 @@
+# Fichiers générés et à ignorer
+node_modules/
+dist/
+build/
+*.log
+.DS_Store
+
+# Dossier d'images optionnel (dossier temporaire)
+images/
+!images/README.md
