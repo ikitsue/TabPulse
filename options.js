@@ -29,6 +29,9 @@ saveBtn.addEventListener('click', () => {
   const selectedLang = languageSelect.value;
   
   setLanguage(selectedLang, () => {
+    // Re-traduire la page après changement
+    translatePage();
+    
     // Afficher un message de confirmation
     translate('savedMsg', (text) => {
       message.textContent = text;

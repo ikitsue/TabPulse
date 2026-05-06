@@ -14,8 +14,10 @@ const TRANSLATIONS = {
     subtitle: 'Vos statistiques de navigation',
     languageLabel: 'Langue',
     saveBtn: 'Enregistrer',
+    resetBtn: '↻ Réinitialiser',
     settingsTitle: 'Paramètres - TabPilse',
-    savedMsg: 'Paramètres sauvegardés !'
+    savedMsg: 'Paramètres sauvegardés !',
+    infoMessage: '💡 Info : Changez la langue et appuyez sur "Enregistrer" pour appliquer les modifications à tout l\'extension.'
   },
   en: {
     sessionTimeLabel: 'Time Elapsed',
@@ -26,8 +28,10 @@ const TRANSLATIONS = {
     subtitle: 'Your browsing statistics',
     languageLabel: 'Language',
     saveBtn: 'Save',
+    resetBtn: '↻ Reset',
     settingsTitle: 'Settings - TabPilse',
-    savedMsg: 'Settings saved!'
+    savedMsg: 'Settings saved!',
+    infoMessage: '💡 Info: Change the language and click "Save" to apply changes to the entire extension.'
   },
   ru: {
     sessionTimeLabel: 'Прошедшее время',
@@ -38,8 +42,10 @@ const TRANSLATIONS = {
     subtitle: 'Ваша статистика просмотров',
     languageLabel: 'Язык',
     saveBtn: 'Сохранить',
+    resetBtn: '↻ Сброс',
     settingsTitle: 'Настройки - TabPilse',
-    savedMsg: 'Параметры сохранены!'
+    savedMsg: 'Параметры сохранены!',
+    infoMessage: '💡 Информация: измените язык и нажмите "Сохранить" для применения изменений ко всему расширению.'
   },
   es: {
     sessionTimeLabel: 'Tiempo transcurrido',
@@ -50,8 +56,10 @@ const TRANSLATIONS = {
     subtitle: 'Tus estadísticas de navegación',
     languageLabel: 'Idioma',
     saveBtn: 'Guardar',
+    resetBtn: '↻ Reiniciar',
     settingsTitle: 'Configuración - TabPilse',
-    savedMsg: '¡Configuración guardada!'
+    savedMsg: '¡Configuración guardada!',
+    infoMessage: '💡 Información: cambia el idioma y haz clic en "Guardar" para aplicar los cambios a toda la extensión.'
   },
   zh: {
     sessionTimeLabel: '已用时间',
@@ -62,8 +70,10 @@ const TRANSLATIONS = {
     subtitle: '您的浏览统计',
     languageLabel: '语言',
     saveBtn: '保存',
+    resetBtn: '↻ 重置',
     settingsTitle: '设置 - TabPilse',
-    savedMsg: '设置已保存！'
+    savedMsg: '设置已保存！',
+    infoMessage: '💡 信息：更改语言并单击"保存"以将更改应用于整个扩展。'
   }
 };
 
@@ -105,20 +115,25 @@ function translatePage() {
     const elements = document.querySelectorAll('[data-i18n]');
     elements.forEach((el) => {
       const key = el.getAttribute('data-i18n');
-      if (TRANSLATIONS[lang] && TRANSLATIONS[lang][key]) {
-        if (el.tagName === 'BUTTON' || el.tagName === 'INPUT') {
-          el.value = TRANSLATIONS[lang][key];
-        } else {
-          el.textContent = TRANSLATIONS[lang][key];
-        }
-      } else if (TRANSLATIONS.en && TRANSLATIONS.en[key]) {
-        // Fallback en anglais si la langue n'existe pas
-        if (el.tagName === 'BUTTON' || el.tagName === 'INPUT') {
-          el.value = TRANSLATIONS.en[key];
-        } else {
-          el.textContent = TRANSLATIONS.en[key];
-        }
+      const text = (TRANSLATIONS[lang] && TRANSLATIONS[lang][key]) 
+        ? TRANSLATIONS[lang][key] 
+        : (TRANSLATIONS.en && TRANSLATIONS.en[key] ? TRANSLATIONS.en[key] : key);
+      
+      // Pour les inputs, utiliser .value
+      if (el.tagName === 'INPUT') {
+        el.value = text;
+      } else {
+        // Pour tout le reste (button, span, div, etc), utiliser .textContent
+        el.textContent = text;
       }
     });
+    
+    // Mettre à jour le titre du bouton d'action dans la barre d'extension
+    if (typeof chrome !== 'undefined' && chrome.action) {
+      const settingsBtnTitle = (TRANSLATIONS[lang] && TRANSLATIONS[lang]['settingsBtn']) 
+        ? TRANSLATIONS[lang]['settingsBtn'] 
+        : TRANSLATIONS.en['settingsBtn'];
+      chrome.action.setTitle({ title: settingsBtnTitle });
+    }
   });
 }
