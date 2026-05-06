@@ -24,5 +24,12 @@
     "service_worker": "background.js"
   },
   
-  "options_page": "options.html"
+  "options_page": "options.html",
+  
+  "web_accessible_resources": [
+    {
+      "resources": ["stats.html", "stats.js", "i18n.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }
