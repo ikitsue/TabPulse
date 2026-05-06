@@ -1,13 +1,13 @@
 /**
  * Popup Script - TabPilse
  * 
- * Gère l'affichage des statistiques dans le popup
- * Récupère les données du background service worker
+ * Manages statistics display in the popup
+ * Retrieves data from the background service worker
  */
 
 /**
  * Formate le temps en secondes/minutes/heures/jours
- * @param {number} milliseconds - Durée en millisecondes
+ * @param {number} milliseconds - Duration in milliseconds
  * @returns {string} Format lisible
  */
 function formatTime(milliseconds) {
@@ -32,21 +32,21 @@ function formatTime(milliseconds) {
 }
 
 /**
- * Met à jour l'affichage des statistiques
- * Récupère les données du background et les affiche
+ * Update the statistics display
+ * Retrieves data from the background and shows it
  */
 function updateStats() {
-  // Envoyer un message au background pour récupérer les stats
+  // Send a message to the background to fetch stats
   chrome.runtime.sendMessage({ action: 'getStats' }, (stats) => {
     if (stats) {
-      // Mettre à jour le temps écoulé
+      // Update elapsed time
       const timeDisplay = document.getElementById('sessionTime');
       if (timeDisplay) {
         const minutes = Math.floor(stats.sessionDuration / 60000);
         timeDisplay.textContent = minutes;
       }
       
-      // Mettre à jour le compteur de pages
+      // Update the page count display
       const pageCountDisplay = document.getElementById('pageCount');
       if (pageCountDisplay) {
         pageCountDisplay.textContent = stats.pageCount;
@@ -56,46 +56,46 @@ function updateStats() {
 }
 
 /**
- * Initialisation au chargement du popup
+ * Initialization when the popup loads
  */
 document.addEventListener('DOMContentLoaded', () => {
-  // Charger les traductions (vérifier que la fonction existe)
+  // Load translations (check that the function exists)
   if (typeof translatePage === 'function') {
     translatePage();
   }
   
-  // Charger le dark mode
+  // Load dark mode
   loadDarkModePopup();
   
-  // Afficher les stats immédiatement
+  // Display stats immediately
   updateStats();
   
-  // Mettre à jour les stats chaque seconde pour que le temps s'actualise
+  // Update stats every second so time refreshes
   setInterval(updateStats, 1000);
   
-  // Gérer le clic sur le bouton paramètres
+  // Handle click on the settings button
   const settingsBtn = document.getElementById('settingsBtn');
   if (settingsBtn) {
     settingsBtn.addEventListener('click', () => {
-      // Ouvrir la page d'options avec gestion d'erreur
+      // Open the options page with error handling
       chrome.runtime.openOptionsPage().catch((error) => {
         console.error('Erreur lors de l\'ouverture des paramètres:', error);
       });
     });
   }
 
-  // Gérer le clic sur le bouton stats
+  // Handle click on the stats button
   const statsBtn = document.getElementById('statsBtn');
   if (statsBtn) {
     statsBtn.addEventListener('click', () => {
-      // Ouvrir la page stats
+      // Open the stats page
       chrome.tabs.create({ url: chrome.runtime.getURL('stats.html') });
     });
   }
 });
 
 /**
- * Dark Mode : Charger et appliquer le thème au popup
+ * Dark Mode: Load and apply the theme to the popup
  */
 function loadDarkModePopup() {
   chrome.storage.local.get(['darkMode'], (result) => {

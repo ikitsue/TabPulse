@@ -1,7 +1,7 @@
 /**
- * Fichier de traductions - i18n.js
+ * Translation file - i18n.js
  * 
- * Contient les textes de l'extension dans plusieurs langues
+ * Contains the extension text in multiple languages
  */
 
 const TRANSLATIONS = {
@@ -252,7 +252,7 @@ const TRANSLATIONS = {
 };
 
 /**
- * Récupère la langue actuelle (par défaut: anglais)
+ * Get the current language (default: English)
  */
 function getLanguage(callback) {
   chrome.storage.local.get(['language'], (result) => {
@@ -262,27 +262,27 @@ function getLanguage(callback) {
 }
 
 /**
- * Définit la langue
+ * Set the language
  */
 function setLanguage(lang, callback) {
   chrome.storage.local.set({ language: lang }, callback);
 }
 
 /**
- * Récupère une traduction pour la langue courante
+ * Get a translation for the current language
  */
 function translate(key, callback) {
   getLanguage((lang) => {
     const text = TRANSLATIONS[lang] && TRANSLATIONS[lang][key] 
       ? TRANSLATIONS[lang][key] 
-      : TRANSLATIONS.fr[key]; // Fallback français
+      : TRANSLATIONS.fr[key]; // Fallback French
     callback(text);
   });
 }
 
 /**
- * Traduit tous les éléments HTML avec l'attribut data-i18n
- * Exemple: <span data-i18n="sessionTimeLabel"></span>
+ * Translate all HTML elements with the data-i18n attribute
+ * Example: <span data-i18n="sessionTimeLabel"></span>
  */
 function translatePage() {
   getLanguage((lang) => {
@@ -293,16 +293,16 @@ function translatePage() {
         ? TRANSLATIONS[lang][key] 
         : (TRANSLATIONS.en && TRANSLATIONS.en[key] ? TRANSLATIONS.en[key] : key);
       
-      // Pour les inputs, utiliser .value
+      // For inputs, use .value
       if (el.tagName === 'INPUT') {
         el.value = text;
       } else {
-        // Pour tout le reste (button, span, div, etc), utiliser .textContent
+        // For everything else (button, span, div, etc), use .textContent
         el.textContent = text;
       }
     });
     
-    // Mettre à jour le titre du bouton d'action dans la barre d'extension
+    // Update the action button title in the extension bar
     if (typeof chrome !== 'undefined' && chrome.action) {
       const settingsBtnTitle = (TRANSLATIONS[lang] && TRANSLATIONS[lang]['settingsBtn']) 
         ? TRANSLATIONS[lang]['settingsBtn'] 

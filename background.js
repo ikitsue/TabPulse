@@ -1,13 +1,13 @@
 /**
  * Background Service Worker - TabPilse
  * 
- * Responsabilités :
- * - Suivre le temps de session du navigateur
- * - Compter les pages consultées
- * - Gérer le stockage des données
+ * Responsibilities:
+ * - Track browser session time
+ * - Count visited pages
+ * - Manage data storage
  */
 
-// Clés du stockage
+// Storage keys
 const STORAGE_KEYS = {
   SESSION_START: 'sessionStartTime',
   PAGE_COUNT: 'pageCount',
@@ -17,16 +17,16 @@ const STORAGE_KEYS = {
   VISITED_SITES: 'visitedSites'
 };
 
-// Initialiser la session au démarrage du service worker
+// Initialize the session when the service worker starts
 initializeSession();
 
 /**
- * Initialise une nouvelle session si elle n'existe pas
+ * Initialize a new session if one does not exist
  */
 function initializeSession() {
   chrome.storage.local.get([STORAGE_KEYS.SESSION_START], (result) => {
     if (!result[STORAGE_KEYS.SESSION_START]) {
-      // Première fois que l'extension démarre cette session
+      // First time the extension is starting this session
       const now = Date.now();
       chrome.storage.local.set({
         [STORAGE_KEYS.SESSION_START]: now,
@@ -43,14 +43,14 @@ function initializeSession() {
 }
 
 /**
- * Événement : Augmenter le compteur lorsqu'une page se charge
- * Utilise webNavigation.onCommitted pour éviter les comptes multiples
+ * Event: Increase count when a page loads
+ * Uses webNavigation.onCommitted to avoid duplicate counts
  */
 chrome.webNavigation.onCommitted.addListener((details) => {
-  // Ignorer les frames imbriquées (iframes, etc)
+  // Ignore embedded frames (iframes, etc)
   if (details.frameId !== 0) return;
   
-  // Récupérer les données actuelles
+  // Retrieve current data
   chrome.storage.local.get(
     [STORAGE_KEYS.PAGE_COUNT, STORAGE_KEYS.LAST_URL, STORAGE_KEYS.DAILY_STATS, STORAGE_KEYS.VISITED_SITES],
     (result) => {
@@ -60,23 +60,23 @@ chrome.webNavigation.onCommitted.addListener((details) => {
       const dailyStats = result[STORAGE_KEYS.DAILY_STATS] || {};
       const visitedSites = result[STORAGE_KEYS.VISITED_SITES] || {};
       
-      // Incrémenter le compteur seulement si c'est une URL différente
-      // ou si c'est le premier chargement
+      // Increment the counter only if the URL is different
+      // or if this is the first load
       if (currentUrl !== lastUrl) {
         const newCount = currentCount + 1;
         
-        // Extraire le domaine de l'URL
+        // Extract the domain from the URL
         try {
           const url = new URL(currentUrl);
           const domain = url.hostname || url.origin;
           
-          // Incrémenter le compteur du site
+          // Increment the site counter
           visitedSites[domain] = (visitedSites[domain] || 0) + 1;
         } catch (e) {
-          // URL invalide, on ignore
+          // Invalid URL, ignore it
         }
         
-        // Mettre à jour les statistiques quotidiennes
+        // Update daily statistics
         const today = new Date().toISOString().split('T')[0];
         dailyStats[today] = (dailyStats[today] || 0) + 1;
         
@@ -93,8 +93,8 @@ chrome.webNavigation.onCommitted.addListener((details) => {
 });
 
 /**
- * Fonction utilitaire : Obtenir les statistiques actuelles
- * Utilisée par le popup
+ * Utility function: Get current statistics
+ * Used by the popup
  */
 function getStats(callback) {
   chrome.storage.local.get(
@@ -113,7 +113,7 @@ function getStats(callback) {
 }
 
 /**
- * Fonction utilitaire : Obtenir le nom du jour selon la date
+ * Utility function: Get the day name for a date
  */
 function getDayLabel(date, locale) {
   const options = { weekday: 'long' };
@@ -121,8 +121,9 @@ function getDayLabel(date, locale) {
   return dayName.charAt(0).toUpperCase() + dayName.slice(1);
 }
 
-/** * Fonction utilitaire : Obtenir les statistiques détaillées pour une période
- * Utilisée par la page stats
+/**
+ * Utility function: Get detailed statistics for a period
+ * Used by the stats page
  */
 function getDetailedStats(period, callback) {
   chrome.storage.local.get(
@@ -156,12 +157,12 @@ function getDetailedStats(period, callback) {
       
       const now = Date.now();
       
-      // Calculer la session moyenne (pages par heure) - indépendant de la période
+      // Calculate average session (pages per hour) - independent of period
       const sessionDurationHours = (now - sessionStart) / (1000 * 60 * 60);
       avgSession = sessionDurationHours > 0 ? Math.round(currentPageCount / sessionDurationHours) : 0;
       
       if (period === 'day') {
-        // Statistiques des 7 derniers jours
+        // Statistics for the last 7 days
         for (let i = 6; i >= 0; i--) {
           const date = new Date(now - i * 24 * 60 * 60 * 1000);
           const dateKey = date.toISOString().split('T')[0];
@@ -176,13 +177,13 @@ function getDetailedStats(period, callback) {
           bestDay = Math.max(bestDay, value);
         }
       } else if (period === 'week') {
-        // Statistiques des 4 dernières semaines (Semaine 1 à 4)
+        // Statistics for the last 4 weeks (Week 1 to 4)
         const weeks = [];
         for (let i = 3; i >= 0; i--) {
           const weekStart = new Date(now - i * 7 * 24 * 60 * 60 * 1000);
           let weekTotal = 0;
           
-          // Calculer le total de la semaine
+          // Calculate the weekly total
           for (let j = 0; j < 7; j++) {
             const date = new Date(weekStart.getTime() + j * 24 * 60 * 60 * 1000);
             const dateKey = date.toISOString().split('T')[0];
@@ -202,10 +203,10 @@ function getDetailedStats(period, callback) {
           totalPages += weekTotal;
           bestDay = Math.max(bestDay, weekTotal);
         }
-        // Inverser pour afficher Semaine 1 en premier
+        // Reverse to show Week 1 first
         chartData = weeks.reverse();
       } else if (period === 'year') {
-        // Statistiques des 12 derniers mois (Jan à Dec)
+        // Statistics for the last 12 months (Jan to Dec)
         const months = [];
         for (let i = 11; i >= 0; i--) {
           const monthStart = new Date(now);
@@ -215,7 +216,7 @@ function getDetailedStats(period, callback) {
           let monthTotal = 0;
           const daysInMonth = new Date(monthStart.getFullYear(), monthStart.getMonth() + 1, 0).getDate();
           
-          // Calculer le total du mois
+          // Calculate the monthly total
           for (let j = 0; j < daysInMonth; j++) {
             const date = new Date(monthStart.getTime() + j * 24 * 60 * 60 * 1000);
             const dateKey = date.toISOString().split('T')[0];
@@ -233,7 +234,7 @@ function getDetailedStats(period, callback) {
           totalPages += monthTotal;
           bestDay = Math.max(bestDay, monthTotal);
         }
-        // Inverser pour afficher Jan en premier
+        // Reverse to show January first
         chartData = months.reverse();
       }
       
@@ -248,35 +249,35 @@ function getDetailedStats(period, callback) {
 }
 
 /**
- * Obtenir le top 10 des sites les plus visités
+ * Get the top 10 most visited sites
  */
 function getTopSites(callback) {
   chrome.storage.local.get([STORAGE_KEYS.VISITED_SITES], (result) => {
     const visitedSites = result[STORAGE_KEYS.VISITED_SITES] || {};
     
-    // Convertir l'objet en array et trier par nombre de visites
+    // Convert the object to an array and sort by visits
     const topSites = Object.entries(visitedSites)
       .map(([domain, count]) => ({
         domain: domain,
         visits: count
       }))
       .sort((a, b) => b.visits - a.visits)
-      .slice(0, 10); // Prendre seulement les 10 premiers
+      .slice(0, 10); // Keep only the top 10
     
     callback(topSites);
   });
 }
 
 /**
- * Listener de message pour communiquer avec le popup
- * Le popup demande les stats et les affiche
+ * Message listener to communicate with the popup
+ * The popup requests stats and displays them
  */
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'getStats') {
     getStats((stats) => {
       sendResponse(stats);
     });
-    return true; // Garder le channel ouvert pour la réponse asynchrone
+    return true; // Keep channel open for async response
   }
 
   if (request.action === 'getDetailedStats') {

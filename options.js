@@ -1,7 +1,7 @@
 /**
- * Options Script - Gestion des paramètres
+ * Options Script - Settings management
  * 
- * Permet à l'utilisateur de changer la langue et sauvegarde le choix
+ * Allows the user to change the language and save the choice
  */
 
 const languageSelect = document.getElementById('languageSelect');
@@ -12,40 +12,40 @@ const darkModeToggle = document.getElementById('darkModeToggle');
 const darkModeStatus = document.getElementById('darkModeStatus');
 
 /**
- * Initialisation : Charger la langue actuelle au démarrage
+ * Initialization: Load current language on startup
  */
 document.addEventListener('DOMContentLoaded', () => {
-  // Traduire la page
+  // Translate the page
   translatePage();
   
-  // Charger la langue sauvegardée
+  // Load the saved language
   getLanguage((lang) => {
     languageSelect.value = lang;
   });
   
-  // Charger le mode sombre sauvegardé
+  // Load the saved dark mode state
   loadDarkMode();
   
-  // Écouteur pour le toggle dark mode
+  // Listener for the dark mode toggle
   darkModeToggle.addEventListener('change', toggleDarkMode);
 });
 
 /**
- * Bouton Enregistrer : Sauvegarder la langue sélectionnée
+ * Save button: Save the selected language
  */
 saveBtn.addEventListener('click', () => {
   const selectedLang = languageSelect.value;
   
   setLanguage(selectedLang, () => {
-    // Re-traduire la page après changement
+    // Re-translate the page after changing the language
     translatePage();
     
-    // Afficher un message de confirmation
+    // Show a confirmation message
     translate('savedMsg', (text) => {
       message.textContent = text;
       message.classList.add('show');
       
-      // Masquer le message après 2 secondes
+      // Hide the message after 2 seconds
       setTimeout(() => {
         message.classList.remove('show');
       }, 2000);
@@ -54,7 +54,7 @@ saveBtn.addEventListener('click', () => {
 });
 
 /**
- * Bouton Réinitialiser : Retourner à l'anglais
+ * Reset button: Revert to English
  */
 resetBtn.addEventListener('click', () => {
   languageSelect.value = 'en';
@@ -62,7 +62,7 @@ resetBtn.addEventListener('click', () => {
 });
 
 /**
- * Dark Mode : Charger l'état sauvegardé
+ * Dark Mode: Load the saved state
  */
 function loadDarkMode() {
   chrome.storage.local.get(['darkMode'], (result) => {
@@ -73,16 +73,16 @@ function loadDarkMode() {
 }
 
 /**
- * Dark Mode : Basculer le mode sombre
+ * Dark Mode: Toggle dark mode
  */
 function toggleDarkMode() {
   const isDarkMode = darkModeToggle.checked;
   
-  // Sauvegarder la préférence
+  // Save the preference
   chrome.storage.local.set({ darkMode: isDarkMode }, () => {
     applyDarkMode(isDarkMode);
     
-    // Mettre à jour le texte du statut
+    // Update the status text
     const statusKey = isDarkMode ? 'darkModeOn' : 'darkModeOff';
     translate(statusKey, (text) => {
       darkModeStatus.textContent = text;
@@ -91,7 +91,7 @@ function toggleDarkMode() {
 }
 
 /**
- * Dark Mode : Appliquer le thème à la page
+ * Dark Mode: Apply the theme to the page
  */
 function applyDarkMode(isDarkMode) {
   if (isDarkMode) {

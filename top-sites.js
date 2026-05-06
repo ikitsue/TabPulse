@@ -1,6 +1,6 @@
 /**
  * Top Sites Page Script - TabPilse
- * Affiche les 10 sites les plus visités
+ * Displays the top 10 most visited sites
  */
 
 /**
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Dark Mode : Charger et appliquer le thème
+ * Dark Mode: Load and apply the theme
  */
 function loadDarkMode() {
   chrome.storage.local.get(['darkMode'], (result) => {
@@ -77,7 +77,7 @@ function displayTopSites(topSites) {
 }
 
 /**
- * Afficher l'état vide
+ * Display the empty state
  */
 function displayEmpty() {
   const sitesList = document.getElementById('sitesList');

@@ -1,60 +1,60 @@
 /**
- * Stats Page Script - TabPulse
+ * Stats Page Script - TabPilse
  *
- * Gère l'affichage des statistiques détaillées avec graphiques
+ * Manages detailed statistics display with charts
  */
 
 let currentPeriod = 'day';
 
 /**
- * Initialisation au chargement de la page
+ * Initialization when the page loads
  */
 document.addEventListener('DOMContentLoaded', () => {
-  // Charger les traductions
+  // Load translations
   if (typeof translatePage === 'function') {
     translatePage();
   }
 
-  // Charger le dark mode
+  // Load dark mode
   loadDarkModeStats();
 
-  // Initialiser les boutons de période
+  // Initialize the period buttons
   initPeriodButtons();
 
-  // Charger les données
+  // Load data
   loadStats();
   loadTopSites();
 
-  // Mettre à jour les stats chaque minute
+  // Update stats every minute
   setInterval(loadStats, 60000);
   setInterval(loadTopSites, 60000);
 });
 
 /**
- * Initialiser les boutons de période
+ * Initialize period buttons
  */
 function initPeriodButtons() {
   const buttons = document.querySelectorAll('.time-btn');
 
   buttons.forEach(button => {
     button.addEventListener('click', () => {
-      // Retirer la classe active de tous les boutons
+      // Remove the active class from all buttons
       buttons.forEach(btn => btn.classList.remove('active'));
 
-      // Ajouter la classe active au bouton cliqué
+      // Add the active class to the clicked button
       button.classList.add('active');
 
-      // Changer la période
+      // Change the period
       currentPeriod = button.dataset.period;
 
-      // Recharger les stats
+      // Reload stats
       loadStats();
     });
   });
 }
 
 /**
- * Charger les statistiques
+ * Load statistics
  */
 function loadStats() {
   chrome.runtime.sendMessage({ action: 'getDetailedStats', period: currentPeriod }, (response) => {
@@ -77,20 +77,20 @@ function loadTopSites() {
 }
 
 /**
- * Afficher les statistiques
+ * Display statistics
  */
 function displayStats(stats) {
-  // Statistiques générales
+  // General statistics
   document.getElementById('avgSession').textContent = stats.avgSession || '--';
   document.getElementById('totalPages').textContent = stats.totalPages || '--';
   document.getElementById('bestDay').textContent = stats.bestDay || '--';
 
-  // Graphique
+  // Chart
   displayChart(stats.chartData);
 }
 
 /**
- * Afficher le graphique
+ * Display the chart
  */
 function displayChart(chartData) {
   const chartContent = document.getElementById('chartContent');
@@ -100,7 +100,7 @@ function displayChart(chartData) {
     return;
   }
 
-  // Calculer la hauteur maximale pour les barres
+  // Calculate the maximum height for the bars
   const maxValue = Math.max(...chartData.map(item => item.value));
   const maxHeight = 250; // hauteur maximale en pixels
 
@@ -125,7 +125,7 @@ function displayChart(chartData) {
 }
 
 /**
- * Afficher l'état vide
+ * Display the empty state
  */
 function displayEmptyState() {
   const chartContent = document.getElementById('chartContent');
@@ -135,7 +135,7 @@ function displayEmptyState() {
     </div>
   `;
 
-  // Statistiques vides
+  // Empty statistics
   document.getElementById('avgSession').textContent = '--';
   document.getElementById('totalPages').textContent = '--';
   document.getElementById('bestDay').textContent = '--';
@@ -164,11 +164,7 @@ function displayTopSites(topSites) {
 }
 
 /**
- * Dark Mode : Charger et appliquer le thème
- */
-
-/**
- * Dark Mode : Charger et appliquer le thème
+ * Dark Mode: Load and apply the theme
  */
 function loadDarkModeStats() {
   chrome.storage.local.get(['darkMode'], (result) => {
