@@ -96,19 +96,15 @@ function displayChart(chartData) {
 
   chartData.forEach(item => {
     const height = maxValue > 0 ? (item.value / maxValue) * maxHeight : 40;
-    const percentage = maxValue > 0 ? Math.round((item.value / maxValue) * 100) : 0;
 
     chartHTML += `
-      <div class="bar-item" style="height: ${height}px;" title="${item.label}: ${item.value}">
-        <div class="bar-value">${item.value}</div>
+      <div class="bar-group">
+        <div class="bar-item" style="height: ${height}px;" title="${item.label}: ${item.value}">
+          <div class="bar-value">${item.value}</div>
+        </div>
+        <div class="bar-label">${item.label}</div>
       </div>
     `;
-  });
-
-  chartHTML += '</div><div class="chart-bar">';
-
-  chartData.forEach(item => {
-    chartHTML += `<div class="bar-label">${item.label}</div>`;
   });
 
   chartHTML += '</div>';
