@@ -97,7 +97,8 @@ function getStats(callback) {
   );
 }
 
-/** * Fonction utilitaire : Obtenir le nom du jour selon l'index (0 = aujourd'hui, 6 = il y a 6 jours)
+/**
+ * Fonction utilitaire : Obtenir le nom du jour selon l'index (0 = aujourd'hui, 6 = il y a 6 jours)
  */
 function getDayLabel(index) {
   const days = ['Vendredi', 'Jeudi', 'Mercredi', 'Mardi', 'Lundi', 'Dimanche', 'Samedi'];
@@ -125,6 +126,8 @@ function getDetailedStats(period, callback) {
       // Calculer la session moyenne (pages par heure) - indépendant de la période
       const sessionDurationHours = (now - sessionStart) / (1000 * 60 * 60);
       avgSession = sessionDurationHours > 0 ? Math.round(currentPageCount / sessionDurationHours) : 0;
+      
+      if (period === 'day') {
         // Statistiques des 7 derniers jours
         for (let i = 6; i >= 0; i--) {
           const date = new Date(now - i * 24 * 60 * 60 * 1000);

@@ -55,9 +55,7 @@ function initPeriodButtons() {
  * Charger les statistiques
  */
 function loadStats() {
-  console.log('Loading stats for period:', currentPeriod);
   chrome.runtime.sendMessage({ action: 'getDetailedStats', period: currentPeriod }, (response) => {
-    console.log('Stats response:', response);
     if (response && response.stats) {
       displayStats(response.stats);
     } else {
@@ -84,8 +82,6 @@ function displayStats(stats) {
  */
 function displayChart(chartData) {
   const chartContent = document.getElementById('chartContent');
-
-  console.log('Chart data received:', chartData);
 
   if (!chartData || chartData.length === 0) {
     displayEmptyState();
