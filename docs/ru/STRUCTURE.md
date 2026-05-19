@@ -1,7 +1,7 @@
-# Структура проекта - TabPilse
+# Структура проекта - TabPulse
 
 ```
-TabPilse/
+TabPulse/
 ├── manifest.json          # Конфигурация расширения
 ├── background.js          # Service Worker (основная логика)
 ├── popup.html             # Интерфейс всплывающего окна

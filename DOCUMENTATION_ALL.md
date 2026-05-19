@@ -1,4 +1,4 @@
-# 📊 TabPilse - Complete Documentation
+# 📊 TabPulse - Complete Documentation
 
 Choose your language / Choisissez votre langue / Выберите ваш язык / Elige tu idioma / 选择您的语言
 
@@ -18,7 +18,7 @@ Choose your language / Choisissez votre langue / Выберите ваш язы�
 
 ## 🇬🇧 English Documentation {#english}
 
-# TabPilse - Chrome Manifest V3 Extension
+# TabPulse - Chrome Manifest V3 Extension
 
 A simple and lightweight extension to track your browsing statistics.
 
@@ -65,7 +65,7 @@ Translation system with all texts in 5 languages.
 1. Open `chrome://extensions/` or `brave://extensions/`
 2. Enable "Developer mode" (top right)
 3. Click "Load unpacked"
-4. Select the TabPilse folder
+4. Select the TabPulse folder
 5. Done! ✅
 
 ### Privacy
@@ -90,7 +90,7 @@ Translation system with all texts in 5 languages.
 
 ## 🇫🇷 Documentation Française {#french}
 
-# TabPilse - Extension Chrome Manifest V3
+# TabPulse - Extension Chrome Manifest V3
 
 Extension simple et légère pour suivre vos statistiques de navigation.
 
@@ -137,7 +137,7 @@ Système de traduction avec tous les textes en 5 langues.
 1. Ouvrez `chrome://extensions/` ou `brave://extensions/`
 2. Activez le "Mode de développement" (coin haut-droit)
 3. Cliquez sur "Charger l'extension non empaquetée"
-4. Sélectionnez le dossier TabPilse
+4. Sélectionnez le dossier TabPulse
 5. Done ! ✅
 
 ### Respect de la vie privée
@@ -162,7 +162,7 @@ Système de traduction avec tous les textes en 5 langues.
 
 ## 🇷🇺 Русская Документация {#russian}
 
-# TabPilse - Расширение Chrome Manifest V3
+# TabPulse - Расширение Chrome Manifest V3
 
 Простое и легкое расширение для отслеживания статистики вашего просмотра.
 
@@ -209,7 +209,7 @@ Service Worker, работающий в фоне и управляющий ло�
 1. Откройте `chrome://extensions/` или `brave://extensions/`
 2. Включите "Режим разработчика" (верхний правый угол)
 3. Нажмите "Загрузить распакованное расширение"
-4. Выберите папку TabPilse
+4. Выберите папку TabPulse
 5. Готово! ✅
 
 ### Конфиденциальность
@@ -234,7 +234,7 @@ Service Worker, работающий в фоне и управляющий ло�
 
 ## 🇪🇸 Documentación Española {#spanish}
 
-# TabPilse - Extensión de Chrome Manifest V3
+# TabPulse - Extensión de Chrome Manifest V3
 
 Una extensión simple y ligera para rastrear tus estadísticas de navegación.
 
@@ -281,7 +281,7 @@ Sistema de traducción con todos los textos en 5 idiomas.
 1. Abre `chrome://extensions/` o `brave://extensions/`
 2. Habilita el "Modo de desarrollador" (esquina superior derecha)
 3. Haz clic en "Cargar extensión sin empaquetar"
-4. Selecciona la carpeta TabPilse
+4. Selecciona la carpeta TabPulse
 5. ¡Hecho! ✅
 
 ### Privacidad
@@ -306,7 +306,7 @@ Sistema de traducción con todos los textos en 5 idiomas.
 
 ## 🇨🇳 中文文档 {#chinese}
 
-# TabPilse - Chrome Manifest V3 扩展
+# TabPulse - Chrome Manifest V3 扩展
 
 一个简单轻巧的扩展程序，用于跟踪您的浏览统计数据。
 
@@ -353,7 +353,7 @@ Sistema de traducción con todos los textos en 5 idiomas.
 1. 打开 `chrome://extensions/` 或 `brave://extensions/`
 2. 启用"开发者模式"（右上角）
 3. 单击"加载未打包的扩展程序"
-4. 选择 TabPilse 文件夹
+4. 选择 TabPulse 文件夹
 5. 完成！✅
 
 ### 隐私

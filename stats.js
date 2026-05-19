@@ -1,5 +1,5 @@
 /**
- * Stats Page Script - TabPilse
+ * Stats Page Script - TabPulse
  *
  * Manages detailed statistics display with charts
  */

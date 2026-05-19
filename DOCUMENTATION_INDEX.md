@@ -1,6 +1,6 @@
 # 📚 Documentation Index
 
-Complete documentation for TabPilse organized by language folders.
+Complete documentation for TabPulse organized by language folders.
 
 ## 📖 Documentation by Language
 

@@ -1,7 +1,7 @@
-# Project Structure - TabPilse
+# Project Structure - TabPulse
 
 ```
-TabPilse/
+TabPulse/
 ├── manifest.json          # Extension configuration
 ├── background.js          # Service Worker (main logic)
 ├── popup.html             # Popup interface

@@ -1,5 +1,5 @@
 /**
- * Top Sites Page Script - TabPilse
+ * Top Sites Page Script - TabPulse
  * Displays the top 10 most visited sites
  */
 

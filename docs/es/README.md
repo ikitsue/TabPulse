@@ -1,4 +1,4 @@
-# 📊 TabPilse - Extensión de Chrome Manifest V3
+# 📊 TabPulse - Extensión de Chrome Manifest V3
 
 Una extensión simple y ligera para rastrear tus estadísticas de navegación.
 

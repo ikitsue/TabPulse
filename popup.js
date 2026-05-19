@@ -1,5 +1,5 @@
 /**
- * Popup Script - TabPilse
+ * Popup Script - TabPulse
  * 
  * Manages statistics display in the popup
  * Retrieves data from the background service worker

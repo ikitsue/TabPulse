@@ -1,7 +1,7 @@
-# Estructura del Proyecto - TabPilse
+# Estructura del Proyecto - TabPulse
 
 ```
-TabPilse/
+TabPulse/
 ├── manifest.json          # Configuración de la extensión
 ├── background.js          # Service Worker (lógica principal)
 ├── popup.html             # Interfaz del popup

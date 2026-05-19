@@ -1,7 +1,7 @@
-# 项目结构 - TabPilse
+# 项目结构 - TabPulse
 
 ```
-TabPilse/
+TabPulse/
 ├── manifest.json          # 扩展配置
 ├── background.js          # Service Worker（主要逻辑）
 ├── popup.html             # 弹出窗口界面

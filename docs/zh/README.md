@@ -1,4 +1,4 @@
-# 📊 TabPilse - Chrome Manifest V3 扩展
+# 📊 TabPulse - Chrome Manifest V3 扩展
 
 一个简单轻巧的扩展程序，用于跟踪您的浏览统计数据。
 

@@ -1,5 +1,5 @@
 /**
- * Background Service Worker - TabPilse
+ * Background Service Worker - TabPulse
  * 
  * Responsibilities:
  * - Track browser session time
@@ -37,7 +37,7 @@ function initializeSession() {
         [STORAGE_KEYS.VISITED_SITES]: {},
         language: 'en'
       });
-      console.log('[TabPilse] Session initialisée');
+      console.log('[TabPulse] Session initialisée');
     }
   });
 }
@@ -86,7 +86,7 @@ chrome.webNavigation.onCommitted.addListener((details) => {
           [STORAGE_KEYS.DAILY_STATS]: dailyStats,
           [STORAGE_KEYS.VISITED_SITES]: visitedSites
         });
-        console.log(`[TabPilse] Page comptabilisée. Total: ${newCount}`);
+        console.log(`[TabPulse] Page comptabilisée. Total: ${newCount}`);
       }
     }
   );

@@ -1,4 +1,4 @@
-# 📊 TabPilse - Chrome Manifest V3 Extension
+# 📊 TabPulse - Chrome Manifest V3 Extension
 
 **Available in multiple languages / Disponible en plusieurs langues**
 
@@ -40,7 +40,7 @@ Una extensión simple y ligera para rastrear tus estadísticas de navegación. L
 1. Open `chrome://extensions/` or `brave://extensions/`
 2. Enable "Developer mode"
 3. Click "Load unpacked"
-4. Select the TabPilse folder
+4. Select the TabPulse folder
 5. Done! ✅
 
 ---
@@ -61,5 +61,5 @@ See [STRUCTURE.md](STRUCTURE.md) for project organization.
 
 ---
 
-**Enjoy TabPilse! / Profitez de TabPilse!** 🎉
+**Enjoy TabPulse! / Profitez de TabPulse!** 🎉
 

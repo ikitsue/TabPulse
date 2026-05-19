@@ -1,4 +1,4 @@
-# 📊 TabPilse - Chrome Manifest V3 Extension
+# 📊 TabPulse - Chrome Manifest V3 Extension
 
 A simple and lightweight extension to track your browsing statistics.
 
